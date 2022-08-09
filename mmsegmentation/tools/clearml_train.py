@@ -6,6 +6,8 @@ import os.path as osp
 import time
 import warnings
 
+os.environ['PYTHONPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+
 import mmcv
 import torch
 import torch.distributed as dist
@@ -122,6 +124,7 @@ def main():
     args = parse_args()
 
     Dataset.get(dataset_id=args.dataset_id).get_mutable_local_copy(args.dataset_path)
+
     os.environ['PYTHONPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
     args.training_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clerml_train.py')
     args.training_script_args = ['--seed', '0', '--launcher', 'pytorch', args.config]
