@@ -6,7 +6,7 @@ import os.path as osp
 import time
 import warnings
 
-os.environ['PYTHONPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+# os.environ['PYTHONPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
 import mmcv
 import torch
@@ -14,13 +14,6 @@ import torch.distributed as dist
 from mmcv.cnn.utils import revert_sync_batchnorm
 from mmcv.runner import get_dist_info, init_dist
 from mmcv.utils import Config, DictAction, get_git_hash
-
-from mmseg import __version__
-from mmseg.apis import init_random_seed, set_random_seed, train_segmentor
-from mmseg.datasets import build_dataset
-from mmseg.models import build_segmentor
-from mmseg.utils import (collect_env, get_device, get_root_logger,
-                         setup_multi_processes)
 
 from clearml import Dataset
 
@@ -183,6 +176,16 @@ def main():
     # init the logger before other steps
     timestamp = time.strftime('%Y%m%d_%H%M%S', time.localtime())
     log_file = osp.join(cfg.work_dir, f'{timestamp}.log')
+
+
+    from mmseg import __version__
+    from mmseg.apis import init_random_seed, set_random_seed, train_segmentor
+    from mmseg.datasets import build_dataset
+    from mmseg.models import build_segmentor
+    from mmseg.utils import (collect_env, get_device, get_root_logger,
+                            setup_multi_processes)
+
+
     logger = get_root_logger(log_file=log_file, log_level=cfg.log_level)
 
     # set multi-process settings
