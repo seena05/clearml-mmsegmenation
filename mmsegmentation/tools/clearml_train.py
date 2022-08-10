@@ -118,6 +118,7 @@ def main():
 
     Dataset.get(dataset_id=args.dataset_id).get_mutable_local_copy(args.dataset_path)
 
+    print(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
     os.environ['PYTHONPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
     args.training_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'clerml_train.py')
     args.training_script_args = ['--seed', '0', '--launcher', 'pytorch', args.config]
